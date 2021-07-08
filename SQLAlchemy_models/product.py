@@ -1,5 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.dialects.mysql import MEDIUMTEXT
+from sqlalchemy.orm import relationship
 
 from SQLAlchemy_models.base import Base
 
@@ -9,9 +10,30 @@ class Product(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60), unique=True)
-    category = Column(String(60))
-    VAT = Column(Integer, nullable=False)
-    price = Column(Integer, nullable=False)
+    VAT = Column(Integer)
+    price = Column(Integer)
+
+    categories = relationship(
+        'Category',
+        secondary='product_has_category',
+        back_populates="products")
+
+    ingredients = relationship(
+        'Ingredient',
+        secondary='product_has_ingredient',
+        back_populates='products'
+    )
+
+    carts = relationship(
+        'CartHasProduct',
+        back_populates='product'
+    )
+
+    type = Column(String(50))
+    __mapper_args__ = {
+        'polymorphic_identity': 'product',
+        'polymorphic_on': type
+    }
 
 
 class Pizza(Product):
@@ -23,3 +45,7 @@ class Pizza(Product):
     size = Column(Integer)
     image_link = Column(String(100))
     description = Column(String(200))
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'pizza',
+    }

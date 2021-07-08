@@ -7,33 +7,46 @@ from SQLAlchemy_models.base import Base
 class Role(Base):
     __tablename__ = 'role'
 
-    id = Column(Integer, primary_key=True, nullable=False)
-    name = Column(String(45), nullable=False, unique=True)
-    user_id = Column(ForeignKey('user.user_id'), primary_key=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(45))
+    last_name = Column(String(80))
+    phone = Column(String(15), unique=True)
 
-    user = relationship('User')
+    user_id = Column(Integer, ForeignKey('user.id'))
+
+    type = Column(String(50))
+    __mapper_args__ = {
+        'polymorphic_identity': 'role',
+        'polymorphic_on': type
+    }
 
 
 class Customer(Role):
     __tablename__ = 'customer'
 
-    id = Column(ForeignKey('role.id'), primary_key=True, index=True)
-    first_name = Column(String(45), nullable=False)
-    last_name = Column(String(80), nullable=False)
+    id = Column(Integer, ForeignKey('role.id'), primary_key=True)
     street_name = Column(String(120))
     street_num = Column(Integer)
     city_name = Column(String(120))
     city_pin = Column(Integer)
-    phone = Column(String(15), unique=True)
     email = Column(String(120), unique=True)
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'customer',
+    }
 
 
 class Employee(Role):
     __tablename__ = 'employee'
 
-    id = Column(ForeignKey('role.id'), primary_key=True, index=True)
-    first_name = Column(String(45), nullable=False)
-    last_name = Column(String(80), nullable=False)
-    phone = Column(String(15), unique=True)
+    id = Column(Integer, ForeignKey('role.id'), primary_key=True)
 
-    pizzerias = relationship('Pizzeria', secondary='pizzeria_has_employee')
+    pizzerias = relationship(
+        'Pizzeria',
+        secondary='pizzeria_has_employee',
+        back_populates='employees'
+    )
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'employee',
+    }

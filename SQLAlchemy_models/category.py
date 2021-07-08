@@ -11,4 +11,7 @@ class Category(Base):
     name = Column(String(45), unique=True, nullable=False)
     description = Column(String(150))
 
-    products = relationship('Product', secondary='product_has_category')
+    products = relationship(
+        'Product',
+        secondary='product_has_category',
+        back_populates="categories")

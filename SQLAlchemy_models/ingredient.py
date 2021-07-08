@@ -10,5 +10,13 @@ class Ingredient(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(45), nullable=False)
 
-    products = relationship('Product', secondary='product_has_ingredient')
-    stocks = relationship('Stock', secondary='stock_has_ingredient')
+    products = relationship(
+        'Product',
+        secondary='product_has_ingredient',
+        back_populates='ingredients'
+    )
+
+    stocks = relationship(
+        'StockHasIngredient',
+        back_populates='ingredient'
+    )

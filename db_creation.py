@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 
-from config import MYSQL_USER, MYSQL_PASSWORD
+from CONFIG import MYSQL_USER, MYSQL_PASSWORD
 
 from SQLAlchemy_models.base import Base
 from SQLAlchemy_models import association_tables
@@ -14,7 +14,10 @@ def create_db():
     Drops the tables and recreates them, for an easy and efficient reset of the DB
     """
     engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost')
-    engine.execute("DROP DATABASE project_6")
+    engine.execute("DROP DATABASE IF EXISTS project_6")
     engine.execute("CREATE DATABASE project_6")
     engine.execute("USE project_6")
     Base.metadata.create_all(engine)
+
+
+create_db()
