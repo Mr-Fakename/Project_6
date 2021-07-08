@@ -14,6 +14,12 @@ class Role(Base):
 
     user_id = Column(Integer, ForeignKey('user.id'))
 
+    permissions = relationship(
+        'Permission',
+        secondary='role_has_permission',
+        back_populates='roles'
+    )
+
     type = Column(String(50))
     __mapper_args__ = {
         'polymorphic_identity': 'role',

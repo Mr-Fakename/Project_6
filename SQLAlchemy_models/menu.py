@@ -15,4 +15,8 @@ class Menu(Base):
         back_populates='menu'
     )
 
-    products = relationship('Product', secondary='menu_has_product')
+    products = relationship(
+        'Product',
+        secondary='menu_has_product',
+        back_populates='menus'
+    )

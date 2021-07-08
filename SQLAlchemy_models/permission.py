@@ -10,4 +10,8 @@ class Permission(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(45), unique=True)
 
-    roles = relationship('Role', secondary='role_has_permission')
+    roles = relationship(
+        'Role',
+        secondary='role_has_permission',
+        back_populates='permissions'
+    )

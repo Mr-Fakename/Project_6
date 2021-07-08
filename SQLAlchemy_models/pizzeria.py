@@ -8,7 +8,7 @@ class Pizzeria(Base):
     __tablename__ = 'pizzeria'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(45), unique=True, nullable=False)
+    name = Column(String(45), unique=True)
 
     employees = relationship(
         'Employee',

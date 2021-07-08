@@ -7,7 +7,8 @@ from SQLAlchemy_models.base import Base
 class Order(Base):
     __tablename__ = 'order'
 
-    id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True)
+
     cart_id = Column(ForeignKey('cart.id'), primary_key=True, nullable=False, index=True)
     pizzeria_id = Column(ForeignKey('pizzeria.id'), primary_key=True, nullable=False, index=True)
     employee_id = Column(ForeignKey('employee.id'), primary_key=True, nullable=False, index=True)

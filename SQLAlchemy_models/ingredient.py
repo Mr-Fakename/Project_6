@@ -8,7 +8,7 @@ class Ingredient(Base):
     __tablename__ = 'ingredient'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(45), nullable=False)
+    name = Column(String(45))
 
     products = relationship(
         'Product',

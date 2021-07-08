@@ -29,6 +29,12 @@ class Product(Base):
         back_populates='product'
     )
 
+    menus = relationship(
+        'Menu',
+        secondary='menu_has_product',
+        back_populates='products'
+    )
+
     type = Column(String(50))
     __mapper_args__ = {
         'polymorphic_identity': 'product',
@@ -39,7 +45,7 @@ class Product(Base):
 class Pizza(Product):
     __tablename__ = 'pizza'
 
-    id = Column(ForeignKey('product.id'), primary_key=True, index=True)
+    id = Column(Integer, ForeignKey('product.id'), primary_key=True)
     ingredient_quantity = Column(Integer)
     recipe = Column(MEDIUMTEXT)
     size = Column(Integer)

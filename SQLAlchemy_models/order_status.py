@@ -7,4 +7,4 @@ class OrderStatus(Base):
     __tablename__ = 'order_status'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(45), unique=True, nullable=False)
+    name = Column(String(45), unique=True)

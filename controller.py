@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from config import MYSQL_USER, MYSQL_PASSWORD
+from CONFIG import MYSQL_USER, MYSQL_PASSWORD
 
 from SQLAlchemy_models import association_tables
 from SQLAlchemy_models import user, cart, category, delivery_address, \
@@ -21,6 +21,3 @@ class Database:
 
 
 db = Database()
-
-cat = db.session.query(category.Category).first()
-piz = db.session.query(product.Pizza).first()
