@@ -9,11 +9,11 @@ class Order(Base):
 
     id = Column(Integer, primary_key=True)
 
-    cart_id = Column(ForeignKey('cart.id'), primary_key=True, nullable=False, index=True)
-    pizzeria_id = Column(ForeignKey('pizzeria.id'), primary_key=True, nullable=False, index=True)
-    employee_id = Column(ForeignKey('employee.id'), primary_key=True, nullable=False, index=True)
-    customer_id = Column(ForeignKey('customer.id'), primary_key=True, nullable=False, index=True)
-    order_status_id = Column(ForeignKey('order_status.id'), primary_key=True, nullable=False, index=True)
+    cart_id = Column(ForeignKey('cart.id'), primary_key=True)
+    pizzeria_id = Column(ForeignKey('pizzeria.id'), primary_key=True)
+    employee_id = Column(ForeignKey('employee.id'), primary_key=True)
+    customer_id = Column(ForeignKey('customer.id'), primary_key=True)
+    order_status_id = Column(ForeignKey('order_status.id'), primary_key=True)
     cost = Column(String(15))
     ordered = Column(DateTime)
 
