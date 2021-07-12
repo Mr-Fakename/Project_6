@@ -1,0 +1,12 @@
+{
+  "roles": ["Chef", "Customer", "Manager", "Delivery Person"],
+  "permissions": ["Update User", "Create User", "Delete User", "Update Any User",
+    "Update Menu", "Assign Order", "Change Order Status"
+  ],
+  "ingredients": ["Ham", "Mushrooms", "Mozzarella", "Tomato", "Basil", "Onions",
+    "Salami", "Paprika", "Kebab", "Parmesan", "Shrimps", "Cream"],
+  "sizes": ["21", "27", "31"],
+  "categories": ["Vegetarian", "Classics", "Oriental", "Meaty"],
+  "product_names": ["Regina", "BBQ", "Kebab", "Hawaiian", "4 seasons", "Cheesy", "Hot & Spicy"],
+  "order_status": ["New", "In Preparation", "Shipped", "Delivered", "Closed", "Cancelled"]
+}

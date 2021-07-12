@@ -12,6 +12,7 @@ class CartHasProduct(Base):
     product_id = Column(Integer, ForeignKey('product.id'), primary_key=True)
     cart_id = Column(Integer, ForeignKey('cart.id'), primary_key=True)
     product_quantity = Column(Integer, server_default="1")
+    product_size = Column(Integer, server_default=None)
 
     cart = relationship(
         'Cart',
@@ -42,18 +43,29 @@ class StockHasIngredient(Base):
     )
 
 
+class ProductHasIngredient(Base):
+    __tablename__ = 'product_has_ingredient'
+
+    ingredient_id = Column(Integer, ForeignKey('ingredient.id'), primary_key=True)
+    product_id = Column(Integer, ForeignKey('product.id'), primary_key=True)
+    ingredient_quantity = Column(Integer)
+
+    product = relationship(
+        'Product',
+        back_populates='ingredients'
+    )
+
+    ingredient = relationship(
+        'Ingredient',
+        back_populates='products'
+    )
+
+
 product_has_category = Table(
     'product_has_category', metadata,
     Column('product_id', Integer, ForeignKey('product.id')),
     Column('category_id', Integer, ForeignKey('category.id')),
     UniqueConstraint('product_id', 'category_id', name='_product_category_uc')
-)
-
-product_has_ingredient = Table(
-    'product_has_ingredient', metadata,
-    Column('product_id', Integer, ForeignKey('product.id')),
-    Column('ingredient_id', Integer, ForeignKey('ingredient.id')),
-    UniqueConstraint('product_id', 'ingredient_id', name='_product_ingredient_uc')
 )
 
 role_has_permission = Table(

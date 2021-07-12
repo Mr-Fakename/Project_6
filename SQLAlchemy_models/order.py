@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -15,7 +17,7 @@ class Order(Base):
     customer_id = Column(ForeignKey('customer.id'), primary_key=True)
     order_status_id = Column(ForeignKey('order_status.id'), primary_key=True)
     cost = Column(String(15))
-    ordered = Column(DateTime)
+    ordered = Column(DateTime, default=datetime.datetime.utcnow)
 
     cart = relationship('Cart')
     customer = relationship('Customer')

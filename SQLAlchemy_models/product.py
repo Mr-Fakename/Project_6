@@ -19,9 +19,8 @@ class Product(Base):
         back_populates="products")
 
     ingredients = relationship(
-        'Ingredient',
-        secondary='product_has_ingredient',
-        back_populates='products'
+        'ProductHasIngredient',
+        back_populates='product'
     )
 
     carts = relationship(
@@ -46,11 +45,13 @@ class Pizza(Product):
     __tablename__ = 'pizza'
 
     id = Column(Integer, ForeignKey('product.id'), primary_key=True)
-    ingredient_quantity = Column(Integer)
     recipe = Column(MEDIUMTEXT)
-    size = Column(Integer)
     image_link = Column(String(100))
     description = Column(String(200))
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("VAT", "10")
+        super().__init__(**kwargs)
 
     __mapper_args__ = {
         'polymorphic_identity': 'pizza',

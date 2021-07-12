@@ -24,6 +24,6 @@ class Pizzeria(Base):
 
     menu = relationship(
         'Menu',
-        back_populates='pizzeria',
+        backref='pizzeria',
         uselist=False
     )

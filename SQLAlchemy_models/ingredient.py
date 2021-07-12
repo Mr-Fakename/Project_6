@@ -11,9 +11,8 @@ class Ingredient(Base):
     name = Column(String(45))
 
     products = relationship(
-        'Product',
-        secondary='product_has_ingredient',
-        back_populates='ingredients'
+        'ProductHasIngredient',
+        back_populates='ingredient'
     )
 
     stocks = relationship(

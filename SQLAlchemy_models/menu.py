@@ -10,11 +10,6 @@ class Menu(Base):
     id = Column(Integer, primary_key=True)
     pizzeria_id = Column(Integer, ForeignKey('pizzeria.id'))
 
-    pizzeria = relationship(
-        'Pizzeria',
-        back_populates='menu'
-    )
-
     products = relationship(
         'Product',
         secondary='menu_has_product',
