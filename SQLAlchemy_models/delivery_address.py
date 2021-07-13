@@ -12,6 +12,9 @@ class DeliveryAddress(Base):
     street_num = Column(Integer)
     city_name = Column(String(120))
     city_pin = Column(Integer)
-    order_id = Column(Integer, ForeignKey('order.id'), primary_key=True)
+    order_id = Column(Integer, ForeignKey('order.id'))
 
-    order = relationship('Order')
+    order = relationship(
+        'Order',
+        back_populates='delivery_address'
+    )

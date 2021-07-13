@@ -12,7 +12,7 @@ class Role(Base):
     last_name = Column(String(80))
     phone = Column(String(15), unique=True)
 
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_account_id = Column(Integer, ForeignKey('user_account.id'))
 
     permissions = relationship(
         'Permission',
@@ -36,6 +36,11 @@ class Customer(Role):
     city_name = Column(String(120))
     city_pin = Column(Integer)
     email = Column(String(120), unique=True)
+
+    orders = relationship(
+        'Order',
+        viewonly=True
+    )
 
     __mapper_args__ = {
         'polymorphic_identity': 'customer',

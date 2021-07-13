@@ -8,5 +8,6 @@
   "sizes": ["21", "27", "31"],
   "categories": ["Vegetarian", "Classics", "Oriental", "Meaty"],
   "product_names": ["Regina", "BBQ", "Kebab", "Hawaiian", "4 seasons", "Cheesy", "Hot & Spicy"],
-  "order_status": ["New", "In Preparation", "Shipped", "Delivered", "Closed", "Cancelled"]
+  "order_status": ["New", "In Preparation", "Shipped", "Delivered", "Closed", "Cancelled"],
+  "pizzerias": ["OCPizza 1", "OCPizza 2", "OCPizza 3", "OCPizza 4", "OCPizza 5"]
 }

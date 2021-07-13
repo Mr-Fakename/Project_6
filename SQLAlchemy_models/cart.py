@@ -11,7 +11,7 @@ class Cart(Base):
 
     id = Column(Integer, primary_key=True)
     created = Column(DateTime, default=datetime.datetime.utcnow)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_account_id = Column(Integer, ForeignKey('user_account.id'))
 
     products = relationship(
         'CartHasProduct',
