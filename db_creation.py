@@ -11,7 +11,7 @@ from SQLAlchemy_models import useraccount, cart, category, delivery_address, \
 
 def create_db():
     """ Establishes a connection between the chosen database and SQLAlchemy
-    Drops the tables and recreates them, for an easy and efficient reset of the DB
+    Drops the database and recreates it, for an easy and efficient reset of the DB
     """
     engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost')
     engine.execute("DROP DATABASE IF EXISTS project_6")

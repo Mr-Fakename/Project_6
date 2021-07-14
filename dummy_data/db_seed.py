@@ -15,20 +15,30 @@ from SQLAlchemy_models import useraccount, cart, category, delivery_address, \
 
 class DummyData:
     """
-    Class that connects to the database and contains all the methods to interact with it, via
-    the SQLAlchemy ORM
+    Class that connects to the database and contains all the methods to create fake data,
+    using SQLAlchemy and Faker
+    Part of the dummy data is contained in dummy.json
+
+    Functions can be called individually, but it is recommended to use fill_db() first;
+    as some relationships are dependant on existing objects
+
+    Pay attention to the counts used in for loops, they reflect id of chosen objects for new relationships
+    e.g.: role.id 1 to 50 correspond to 'Employee' objects, role.id 51 to 150 are 'Customer' objects
+        There are 5 pizzerias in this example, so there can only be 5 'Stock' objects, mapped with range(1, 6)
     """
 
     def __init__(self):
+        # creates a connection between the program and the database
         self.engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost/project_6')
         self.session = Session(self.engine)
 
-        self.fake = Faker('fr_FR')
+        self.fake = Faker('fr_FR') # sets the Faker parameters to French, use language code to change e.g.: (en_EN)
 
         with open('dummy.json') as f:
             self.dummy_json = json.load(f)
 
     def fill_db(self):
+        """ creates fake data in a sequence that allows each object type to build relationships on the previous"""
         self.fake_pizzerias()
         self.fake_permissions()
         self.fake_employees()
