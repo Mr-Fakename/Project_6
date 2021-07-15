@@ -101,4 +101,62 @@ def __init__(self):
 It will also be needed to replace data contained in the **dummy.json** file.
 
 
- 
+_____
+___
+
+## *Example Queries*
+*(To prove this database design works, right?)*
+___
+
+SQL query that fetches all employees assigned to pizzeria n°5:
+``` python
+q = """SELECT  
+project_6.role.first_name, project_6.role.last_name
+FROM  
+project_6.pizzeria INNER JOIN 
+project_6.pizzeria_has_employee ON project_6.pizzeria_has_employee.pizzeria_id = project_6.pizzeria.id INNER JOIN 
+project_6.employee ON project_6.pizzeria_has_employee.employee_id = project_6.employee.id INNER JOIN
+project_6.role ON project_6.employee.id = project_6.role.id
+WHERE project_6.pizzeria.id = :val"""
+r = db.session.execute(q, {'val': 5}).mappings().all()
+```
+
+SQLAlchemy query to get all orders labelled as cancelled:
+``` python
+q = db.session.query(order.Order  
+).join(order_status.OrderStatus
+).filter(order_status.OrderStatus.name.ilike("%cancelled%")
+).all()
+ ```
+
+SQLAlchemy query to get all users with at least one order:
+``` python
+q = db.session.query(role.Customer
+).filter(role.Customer.orders != None).all()
+ ```
+
+SQLAlchemy query chained with accessing properties to get the name of all products in the first order of the third customer:
+``` python
+q = db.session.query(role.Customer).all()
+for i in q[2].orders[0].cart.products:
+	print(i.product.name)
+ ```
+
+SQL query that gets all pizzas that can't be made, because the stocks of certain ingredients are too low:
+``` python
+q = """SELECT
+    project_6.product.name AS pizza_name,
+    project_6.ingredient.name AS ingredient_name,
+    project_6.product_has_ingredient.ingredient_quantity AS required_quantity,
+    project_6.stock_has_ingredient.ingredient_quantity AS quantity_in_stock,
+    project_6.stock.pizzeria_id
+FROM
+    project_6.product INNER JOIN
+    project_6.product_has_ingredient ON project_6.product_has_ingredient.product_id = project_6.product.id INNER JOIN
+    project_6.ingredient ON project_6.product_has_ingredient.ingredient_id = project_6.ingredient.id INNER JOIN
+    project_6.stock_has_ingredient ON project_6.stock_has_ingredient.ingredient_id = project_6.ingredient.id INNER JOIN
+    project_6.stock ON project_6.stock_has_ingredient.stock_id = project_6.stock.id
+WHERE
+    project_6.product_has_ingredient.ingredient_quantity > project_6.stock_has_ingredient.ingredient_quantity"""
+r = db.session.execute(q).mappings().all()
+```
