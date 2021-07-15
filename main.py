@@ -8,6 +8,12 @@ from dummy_data.db_seed import DummyData
 from SQLAlchemy_models import *
 
 
+def initiate_db():
+    create_db()
+    dd = DummyData()
+    dd.fill_db()
+
+
 class Database:
     def __init__(self):
         self.engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@localhost/project_6')
