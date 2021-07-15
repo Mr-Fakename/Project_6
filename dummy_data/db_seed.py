@@ -34,7 +34,7 @@ class DummyData:
 
         self.fake = Faker('fr_FR') # sets the Faker parameters to French, use language code to change e.g.: (en_EN)
 
-        with open('dummy.json') as f:
+        with open('dummy_data/dummy.json') as f:
             self.dummy_json = json.load(f)
 
     def fill_db(self):
